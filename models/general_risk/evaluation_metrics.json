@@ -1,0 +1,545 @@
+{
+  "task": "general_maternal_health_risk",
+  "data_audit": {
+    "rows": 1014,
+    "duplicate_rows": 562,
+    "unique_rows": 452,
+    "class_counts": {
+      "low risk": 406,
+      "mid risk": 336,
+      "high risk": 272
+    },
+    "heart_rate_below_30": 2,
+    "feature_groups": 416,
+    "conflicting_feature_groups": 35,
+    "limitation": "Exact duplicate rows are common. Keeping them before a random split places identical records on both sides of the split. Some distinct feature vectors also carry more than one risk label.",
+    "invalid_heart_rate_rows": 2,
+    "rows_removed_as_exact_duplicates": 562,
+    "conflict_rows_removed": 71,
+    "rows_used_for_modeling": 381,
+    "class_counts_modeling": {
+      "low risk": 204,
+      "high risk": 101,
+      "mid risk": 76
+    }
+  },
+  "training_config": {
+    "seed": 42,
+    "protocol": "deduplicated_conflict_free_70_15_15",
+    "feature_names": [
+      "Age",
+      "SystolicBP",
+      "DiastolicBP",
+      "BS",
+      "BodyTemp",
+      "HeartRate"
+    ],
+    "class_names": [
+      "Low Risk",
+      "Mid Risk",
+      "High Risk"
+    ],
+    "target_mapping": {
+      "low risk": 0,
+      "mid risk": 1,
+      "high risk": 2
+    },
+    "focus_class_index": 2,
+    "focus_class_name": "High Risk",
+    "n_train": 265,
+    "n_val": 58,
+    "n_test": 58,
+    "rf_params": {
+      "n_estimators": 200,
+      "min_samples_split": 10,
+      "min_samples_leaf": 1,
+      "max_features": "sqrt",
+      "max_depth": 12,
+      "class_weight": "balanced_subsample",
+      "random_state": 42,
+      "n_jobs": -1
+    },
+    "xgb_params": {
+      "subsample": 0.85,
+      "reg_lambda": 8.0,
+      "reg_alpha": 0.0,
+      "n_estimators": 250,
+      "min_child_weight": 5,
+      "max_depth": 4,
+      "learning_rate": 0.12,
+      "colsample_bytree": 1.0,
+      "random_state": 42,
+      "objective": "multi:softprob",
+      "eval_metric": "mlogloss",
+      "tree_method": "hist",
+      "n_jobs": 1
+    },
+    "search_cv_macro_f1": {
+      "random_forest": 0.682696756542768,
+      "xgboost": 0.659663967691133
+    },
+    "test_used_for_tuning": false,
+    "imputer_medians": {
+      "Age": 25.0,
+      "SystolicBP": 120.0,
+      "DiastolicBP": 75.0,
+      "BS": 7.5,
+      "BodyTemp": 98.0,
+      "HeartRate": 76.0
+    }
+  },
+  "weights": {
+    "best_w_rf": 0.96,
+    "best_w_xgb": 0.040000000000000036,
+    "best_val_score": 0.7890264142122486,
+    "optimization_metric": "clinical_utility",
+    "optimization_note": "Validation clinical score first, then lower validation log-loss, then the weight closer to 0.50. Exact score plateau spans w_rf 0.96 to 1.00.",
+    "plateau_w_rf": [
+      0.96,
+      1.0
+    ],
+    "plateau_size": 5
+  },
+  "weight_stability": {
+    "n_boot_used": 40,
+    "w_rf_mean": 0.9628,
+    "w_rf_std": 0.0148,
+    "w_rf_ci95": [
+      0.95,
+      1.0
+    ],
+    "fraction_near_xgb_only": 0.0,
+    "fraction_near_equal": 0.0
+  },
+  "comparison": [
+    {
+      "accuracy": 72.41,
+      "macro_precision": 68.33,
+      "macro_recall": 69.14,
+      "macro_f1": 68.7,
+      "weighted_f1": 72.42,
+      "roc_auc": 0.8475,
+      "pr_auc": 0.7662,
+      "brier": 0.4055,
+      "ece": 0.0763,
+      "log_loss": 0.7151,
+      "confusion_matrix": [
+        [
+          24,
+          5,
+          2
+        ],
+        [
+          4,
+          6,
+          2
+        ],
+        [
+          2,
+          1,
+          12
+        ]
+      ],
+      "per_class": {
+        "Low Risk": {
+          "precision": 80.0,
+          "recall": 77.42,
+          "f1_score": 78.69,
+          "false_negative_rate": 22.58,
+          "false_positive_rate": 22.22,
+          "support": 31
+        },
+        "Mid Risk": {
+          "precision": 50.0,
+          "recall": 50.0,
+          "f1_score": 50.0,
+          "false_negative_rate": 50.0,
+          "false_positive_rate": 13.04,
+          "support": 12
+        },
+        "High Risk": {
+          "precision": 75.0,
+          "recall": 80.0,
+          "f1_score": 77.42,
+          "false_negative_rate": 20.0,
+          "false_positive_rate": 9.3,
+          "support": 15
+        }
+      },
+      "high_risk_recall": 80.0,
+      "high_risk_precision": 75.0,
+      "high_risk_fpr": 9.3,
+      "high_risk_fnr": 20.0,
+      "model_name": "Random Forest"
+    },
+    {
+      "accuracy": 65.52,
+      "macro_precision": 64.92,
+      "macro_recall": 65.95,
+      "macro_f1": 63.9,
+      "weighted_f1": 67.05,
+      "roc_auc": 0.8493,
+      "pr_auc": 0.7335,
+      "brier": 0.4592,
+      "ece": 0.1245,
+      "log_loss": 0.7778,
+      "confusion_matrix": [
+        [
+          20,
+          9,
+          2
+        ],
+        [
+          2,
+          8,
+          2
+        ],
+        [
+          2,
+          3,
+          10
+        ]
+      ],
+      "per_class": {
+        "Low Risk": {
+          "precision": 83.33,
+          "recall": 64.52,
+          "f1_score": 72.73,
+          "false_negative_rate": 35.48,
+          "false_positive_rate": 14.81,
+          "support": 31
+        },
+        "Mid Risk": {
+          "precision": 40.0,
+          "recall": 66.67,
+          "f1_score": 50.0,
+          "false_negative_rate": 33.33,
+          "false_positive_rate": 26.09,
+          "support": 12
+        },
+        "High Risk": {
+          "precision": 71.43,
+          "recall": 66.67,
+          "f1_score": 68.97,
+          "false_negative_rate": 33.33,
+          "false_positive_rate": 9.3,
+          "support": 15
+        }
+      },
+      "high_risk_recall": 66.67,
+      "high_risk_precision": 71.43,
+      "high_risk_fpr": 9.3,
+      "high_risk_fnr": 33.33,
+      "model_name": "XGBoost"
+    },
+    {
+      "accuracy": 68.97,
+      "macro_precision": 65.63,
+      "macro_recall": 67.54,
+      "macro_f1": 66.23,
+      "weighted_f1": 69.63,
+      "roc_auc": 0.8509,
+      "pr_auc": 0.7623,
+      "brier": 0.4163,
+      "ece": 0.1189,
+      "log_loss": 0.717,
+      "confusion_matrix": [
+        [
+          22,
+          6,
+          3
+        ],
+        [
+          3,
+          7,
+          2
+        ],
+        [
+          2,
+          2,
+          11
+        ]
+      ],
+      "per_class": {
+        "Low Risk": {
+          "precision": 81.48,
+          "recall": 70.97,
+          "f1_score": 75.86,
+          "false_negative_rate": 29.03,
+          "false_positive_rate": 18.52,
+          "support": 31
+        },
+        "Mid Risk": {
+          "precision": 46.67,
+          "recall": 58.33,
+          "f1_score": 51.85,
+          "false_negative_rate": 41.67,
+          "false_positive_rate": 17.39,
+          "support": 12
+        },
+        "High Risk": {
+          "precision": 68.75,
+          "recall": 73.33,
+          "f1_score": 70.97,
+          "false_negative_rate": 26.67,
+          "false_positive_rate": 11.63,
+          "support": 15
+        }
+      },
+      "high_risk_recall": 73.33,
+      "high_risk_precision": 68.75,
+      "high_risk_fpr": 11.63,
+      "high_risk_fnr": 26.67,
+      "model_name": "Equal-weight voting (50/50)"
+    },
+    {
+      "accuracy": 72.41,
+      "macro_precision": 68.33,
+      "macro_recall": 69.14,
+      "macro_f1": 68.7,
+      "weighted_f1": 72.42,
+      "roc_auc": 0.8504,
+      "pr_auc": 0.7692,
+      "brier": 0.4052,
+      "ece": 0.0714,
+      "log_loss": 0.7138,
+      "confusion_matrix": [
+        [
+          24,
+          5,
+          2
+        ],
+        [
+          4,
+          6,
+          2
+        ],
+        [
+          2,
+          1,
+          12
+        ]
+      ],
+      "per_class": {
+        "Low Risk": {
+          "precision": 80.0,
+          "recall": 77.42,
+          "f1_score": 78.69,
+          "false_negative_rate": 22.58,
+          "false_positive_rate": 22.22,
+          "support": 31
+        },
+        "Mid Risk": {
+          "precision": 50.0,
+          "recall": 50.0,
+          "f1_score": 50.0,
+          "false_negative_rate": 50.0,
+          "false_positive_rate": 13.04,
+          "support": 12
+        },
+        "High Risk": {
+          "precision": 75.0,
+          "recall": 80.0,
+          "f1_score": 77.42,
+          "false_negative_rate": 20.0,
+          "false_positive_rate": 9.3,
+          "support": 15
+        }
+      },
+      "high_risk_recall": 80.0,
+      "high_risk_precision": 75.0,
+      "high_risk_fpr": 9.3,
+      "high_risk_fnr": 20.0,
+      "model_name": "Adaptive hybrid (RF 96.0%, XGB 4.0%)"
+    }
+  ],
+  "bootstrap_ci": {
+    "Random Forest": {
+      "n_boot_used": 1000,
+      "accuracy": {
+        "mean": 72.56,
+        "ci95_low": 60.34,
+        "ci95_high": 84.48
+      },
+      "macro_f1": {
+        "mean": 68.27,
+        "ci95_low": 55.68,
+        "ci95_high": 80.66
+      },
+      "weighted_f1": {
+        "mean": 72.5,
+        "ci95_low": 60.47,
+        "ci95_high": 84.25
+      },
+      "high_risk_recall": {
+        "mean": 80.27,
+        "ci95_low": 57.14,
+        "ci95_high": 100.0
+      },
+      "high_risk_precision": {
+        "mean": 74.79,
+        "ci95_low": 50.0,
+        "ci95_high": 94.44
+      },
+      "high_risk_fpr": {
+        "mean": 9.41,
+        "ci95_low": 2.27,
+        "ci95_high": 18.92
+      }
+    },
+    "XGBoost": {
+      "n_boot_used": 1000,
+      "accuracy": {
+        "mean": 65.7,
+        "ci95_low": 53.45,
+        "ci95_high": 77.59
+      },
+      "macro_f1": {
+        "mean": 63.51,
+        "ci95_low": 50.52,
+        "ci95_high": 75.57
+      },
+      "weighted_f1": {
+        "mean": 67.18,
+        "ci95_low": 54.47,
+        "ci95_high": 78.41
+      },
+      "high_risk_recall": {
+        "mean": 67.01,
+        "ci95_low": 41.66,
+        "ci95_high": 89.48
+      },
+      "high_risk_precision": {
+        "mean": 71.2,
+        "ci95_low": 43.75,
+        "ci95_high": 93.75
+      },
+      "high_risk_fpr": {
+        "mean": 9.41,
+        "ci95_low": 2.27,
+        "ci95_high": 18.92
+      }
+    },
+    "Equal-weight voting (50/50)": {
+      "n_boot_used": 1000,
+      "accuracy": {
+        "mean": 69.1,
+        "ci95_low": 56.9,
+        "ci95_high": 81.03
+      },
+      "macro_f1": {
+        "mean": 65.79,
+        "ci95_low": 53.73,
+        "ci95_high": 78.2
+      },
+      "weighted_f1": {
+        "mean": 69.75,
+        "ci95_low": 57.71,
+        "ci95_high": 81.37
+      },
+      "high_risk_recall": {
+        "mean": 73.55,
+        "ci95_low": 50.0,
+        "ci95_high": 93.75
+      },
+      "high_risk_precision": {
+        "mean": 68.89,
+        "ci95_low": 42.83,
+        "ci95_high": 91.69
+      },
+      "high_risk_fpr": {
+        "mean": 11.56,
+        "ci95_low": 2.63,
+        "ci95_high": 22.23
+      }
+    },
+    "Adaptive hybrid (RF 96.0%, XGB 4.0%)": {
+      "n_boot_used": 1000,
+      "accuracy": {
+        "mean": 72.56,
+        "ci95_low": 60.34,
+        "ci95_high": 84.48
+      },
+      "macro_f1": {
+        "mean": 68.27,
+        "ci95_low": 55.68,
+        "ci95_high": 80.66
+      },
+      "weighted_f1": {
+        "mean": 72.5,
+        "ci95_low": 60.47,
+        "ci95_high": 84.25
+      },
+      "high_risk_recall": {
+        "mean": 80.27,
+        "ci95_low": 57.14,
+        "ci95_high": 100.0
+      },
+      "high_risk_precision": {
+        "mean": 74.79,
+        "ci95_low": 50.0,
+        "ci95_high": 94.44
+      },
+      "high_risk_fpr": {
+        "mean": 9.41,
+        "ci95_low": 2.27,
+        "ci95_high": 18.92
+      }
+    }
+  },
+  "repeated_cv_on_development_split": {
+    "Random Forest": {
+      "folds": 15,
+      "accuracy_mean": 77.7,
+      "accuracy_std": 4.71,
+      "macro_f1_mean": 71.28,
+      "macro_f1_std": 5.84,
+      "focus_recall_mean": 87.6,
+      "focus_recall_std": 8.71
+    },
+    "XGBoost": {
+      "folds": 15,
+      "accuracy_mean": 72.76,
+      "accuracy_std": 3.97,
+      "macro_f1_mean": 67.69,
+      "macro_f1_std": 4.07,
+      "focus_recall_mean": 82.16,
+      "focus_recall_std": 6.49
+    }
+  },
+  "shap_importances": {
+    "rf": {
+      "BS": 0.3399,
+      "BodyTemp": 0.2186,
+      "SystolicBP": 0.2108,
+      "Age": 0.0926,
+      "DiastolicBP": 0.0753,
+      "HeartRate": 0.0627
+    },
+    "xgb": {
+      "BS": 0.3601,
+      "BodyTemp": 0.1762,
+      "SystolicBP": 0.1733,
+      "Age": 0.1215,
+      "HeartRate": 0.0983,
+      "DiastolicBP": 0.0707
+    },
+    "hybrid_weighted_average": {
+      "BS": 0.3407,
+      "BodyTemp": 0.2169,
+      "SystolicBP": 0.2093,
+      "Age": 0.0938,
+      "DiastolicBP": 0.0751,
+      "HeartRate": 0.0641
+    }
+  },
+  "hybrid_conclusion": {
+    "improved_on_held_out_test": false,
+    "macro_f1_gain_vs_best_base_points": 0.0,
+    "high_risk_recall_gain_vs_best_base_points": 0.0,
+    "macro_f1_gain_vs_equal_weight_points": 2.47,
+    "collapsed_to_one_model": false,
+    "statement": "The validation-chosen mixture does not improve held-out macro-F1 by more than half a percentage point over the stronger base model, and it does not improve high-risk recall. Equal-weight voting is reported beside it. The hybrid is not claimed to be superior."
+  },
+  "objective": "0.50*macro-F1 + 0.30*high-risk recall + 0.20*high-risk precision, validation only"
+}

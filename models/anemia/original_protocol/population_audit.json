@@ -1,0 +1,30 @@
+{
+    "total_rows": 1421,
+    "duplicates": 887,
+    "columns": [
+        "Gender",
+        "Hemoglobin",
+        "MCH",
+        "MCHC",
+        "MCV",
+        "Result"
+    ],
+    "gender_distribution": {
+        "1": 740,
+        "0": 681
+    },
+    "gender_result_crosstab": {
+        "0": {
+            "0": 473,
+            "1": 328
+        },
+        "1": {
+            "0": 208,
+            "1": 412
+        }
+    },
+    "female_non_anemic_count": 473,
+    "population_finding": "Dataset includes both genders (0 and 1). Specifically, 473 samples represent non-anemic cases with Gender=0. Because obstetrics data (gestational age, pregnancy status) is not verified in the source file, this is designated as a General Anemia Classification module in accordance with the research requirement.",
+    "hb_result_correlation": -0.7963,
+    "leakage_note": "Hemoglobin has a strong correlation (-0.7963) with anemia diagnosis, consistent with WHO clinical diagnostic criteria (Hb cutoffs). CBC indices (MCV, MCH, MCHC) provide essential morphological discrimination."
+}

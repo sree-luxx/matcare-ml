@@ -1,0 +1,600 @@
+{
+  "task": "general_hematological_index_model",
+  "designation": "General Hematological Anemia Classification",
+  "data_audit": {
+    "rows": 1421,
+    "duplicate_rows": 887,
+    "unique_rows": 534,
+    "gender_counts": {
+      "1": 740,
+      "0": 681
+    },
+    "result_counts": {
+      "0": 801,
+      "1": 620
+    },
+    "rule": "Result = 1 if (Gender==0 and Hemoglobin<12.0) or (Gender==1 and Hemoglobin<13.5), else 0",
+    "rule_match_rate": 1.0,
+    "rule_is_exact": true,
+    "conflicting_feature_groups": 0,
+    "hemoglobin_result_correlation": -0.7963,
+    "columns": [
+      "Gender",
+      "Hemoglobin",
+      "MCH",
+      "MCHC",
+      "MCV",
+      "Result"
+    ],
+    "rbc_present": false,
+    "limitation": "The binary target is an exact sex-specific hemoglobin threshold. A model that receives hemoglobin is reproducing that rule. The file has no pregnancy indicator, no patient identifier, and no RBC column. Duplicate rows are exact copies, not verified repeat visits.",
+    "rows_after_dedup_and_conflict_removal": 534,
+    "conflict_rows_removed": 0
+  },
+  "ablation_deduplicated_fixed_hyperparameters": [
+    {
+      "experiment": "Full features",
+      "features": [
+        "Gender",
+        "Hemoglobin",
+        "MCH",
+        "MCHC",
+        "MCV"
+      ],
+      "model": "Random Forest",
+      "accuracy": 100.0,
+      "macro_f1": 100.0,
+      "roc_auc": 1.0,
+      "pr_auc": 1.0,
+      "anemic_recall": 100.0
+    },
+    {
+      "experiment": "Full features",
+      "features": [
+        "Gender",
+        "Hemoglobin",
+        "MCH",
+        "MCHC",
+        "MCV"
+      ],
+      "model": "XGBoost",
+      "accuracy": 100.0,
+      "macro_f1": 100.0,
+      "roc_auc": 1.0,
+      "pr_auc": 1.0,
+      "anemic_recall": 100.0
+    },
+    {
+      "experiment": "Hemoglobin excluded",
+      "features": [
+        "Gender",
+        "MCH",
+        "MCHC",
+        "MCV"
+      ],
+      "model": "Random Forest",
+      "accuracy": 66.67,
+      "macro_f1": 66.65,
+      "roc_auc": 0.6437,
+      "pr_auc": 0.5469,
+      "anemic_recall": 75.68
+    },
+    {
+      "experiment": "Hemoglobin excluded",
+      "features": [
+        "Gender",
+        "MCH",
+        "MCHC",
+        "MCV"
+      ],
+      "model": "XGBoost",
+      "accuracy": 59.26,
+      "macro_f1": 59.03,
+      "roc_auc": 0.5885,
+      "pr_auc": 0.5547,
+      "anemic_recall": 56.76
+    },
+    {
+      "experiment": "Sex code excluded",
+      "features": [
+        "Hemoglobin",
+        "MCH",
+        "MCHC",
+        "MCV"
+      ],
+      "model": "Random Forest",
+      "accuracy": 88.89,
+      "macro_f1": 88.89,
+      "roc_auc": 0.9662,
+      "pr_auc": 0.9595,
+      "anemic_recall": 97.3
+    },
+    {
+      "experiment": "Sex code excluded",
+      "features": [
+        "Hemoglobin",
+        "MCH",
+        "MCHC",
+        "MCV"
+      ],
+      "model": "XGBoost",
+      "accuracy": 87.65,
+      "macro_f1": 87.56,
+      "roc_auc": 0.9656,
+      "pr_auc": 0.9589,
+      "anemic_recall": 86.49
+    },
+    {
+      "experiment": "Hemoglobin and sex code excluded",
+      "features": [
+        "MCV",
+        "MCH",
+        "MCHC"
+      ],
+      "model": "Random Forest",
+      "accuracy": 46.91,
+      "macro_f1": 46.39,
+      "roc_auc": 0.4896,
+      "pr_auc": 0.4748,
+      "anemic_recall": 40.54
+    },
+    {
+      "experiment": "Hemoglobin and sex code excluded",
+      "features": [
+        "MCV",
+        "MCH",
+        "MCHC"
+      ],
+      "model": "XGBoost",
+      "accuracy": 41.98,
+      "macro_f1": 40.19,
+      "roc_auc": 0.4533,
+      "pr_auc": 0.4635,
+      "anemic_recall": 27.03
+    }
+  ],
+  "training_config": {
+    "seed": 42,
+    "protocol": "deduplicated_index_features_70_15_15",
+    "feature_names": [
+      "MCV",
+      "MCH",
+      "MCHC"
+    ],
+    "excluded_features": [
+      "Gender",
+      "Hemoglobin"
+    ],
+    "exclusion_reason": "Result = 1 if (Gender==0 and Hemoglobin<12.0) or (Gender==1 and Hemoglobin<13.5), else 0. This describes anemia_cbc.csv. It is not a pregnancy-specific anemia rule.",
+    "class_names": [
+      "Non-Anemic",
+      "Anemic"
+    ],
+    "focus_class_index": 1,
+    "focus_class_name": "Anemic",
+    "n_train": 373,
+    "n_val": 80,
+    "n_test": 81,
+    "rf_params": {
+      "n_estimators": 320,
+      "min_samples_split": 5,
+      "min_samples_leaf": 8,
+      "max_features": 0.8,
+      "max_depth": 8,
+      "class_weight": "balanced_subsample",
+      "random_state": 42,
+      "n_jobs": -1
+    },
+    "xgb_params": {
+      "subsample": 0.7,
+      "reg_lambda": 8.0,
+      "reg_alpha": 0.0,
+      "n_estimators": 250,
+      "min_child_weight": 1,
+      "max_depth": 2,
+      "learning_rate": 0.03,
+      "colsample_bytree": 1.0,
+      "random_state": 42,
+      "objective": "binary:logistic",
+      "eval_metric": "logloss",
+      "tree_method": "hist",
+      "n_jobs": 1
+    },
+    "search_cv_macro_f1": {
+      "random_forest": 0.4814244295150945,
+      "xgboost": 0.4823385253378503
+    },
+    "test_used_for_tuning": false,
+    "full_feature_names_in_source_file": [
+      "Gender",
+      "Hemoglobin",
+      "MCH",
+      "MCHC",
+      "MCV"
+    ],
+    "rbc_in_source_file": false
+  },
+  "weights": {
+    "best_w_rf": 0.61,
+    "best_w_xgb": 0.39,
+    "best_val_score": 0.46039156776048606,
+    "optimization_metric": "anemia_detection",
+    "optimization_note": "Validation clinical score first, then lower validation log-loss, then the weight closer to 0.50. Exact score plateau spans w_rf 0.61 to 0.99.",
+    "plateau_w_rf": [
+      0.61,
+      0.99
+    ],
+    "plateau_size": 18
+  },
+  "weight_stability": {
+    "n_boot_used": 40,
+    "w_rf_mean": 0.5597,
+    "w_rf_std": 0.2945,
+    "w_rf_ci95": [
+      0.0,
+      0.951
+    ],
+    "fraction_near_xgb_only": 0.1,
+    "fraction_near_equal": 0.225
+  },
+  "comparison": [
+    {
+      "accuracy": 48.15,
+      "macro_precision": 48.41,
+      "macro_recall": 48.4,
+      "macro_f1": 48.14,
+      "weighted_f1": 48.2,
+      "roc_auc": 0.476,
+      "pr_auc": 0.463,
+      "brier": 0.262,
+      "ece": 0.114,
+      "log_loss": 0.7175,
+      "confusion_matrix": [
+        [
+          20,
+          24
+        ],
+        [
+          18,
+          19
+        ]
+      ],
+      "per_class": {
+        "Non-Anemic": {
+          "precision": 52.63,
+          "recall": 45.45,
+          "f1_score": 48.78,
+          "false_negative_rate": 54.55,
+          "false_positive_rate": 48.65,
+          "support": 44
+        },
+        "Anemic": {
+          "precision": 44.19,
+          "recall": 51.35,
+          "f1_score": 47.5,
+          "false_negative_rate": 48.65,
+          "false_positive_rate": 54.55,
+          "support": 37
+        }
+      },
+      "high_risk_recall": 51.35,
+      "high_risk_precision": 44.19,
+      "high_risk_fpr": 54.55,
+      "high_risk_fnr": 48.65,
+      "model_name": "Random Forest"
+    },
+    {
+      "accuracy": 41.98,
+      "macro_precision": 42.12,
+      "macro_recall": 42.08,
+      "macro_f1": 41.94,
+      "weighted_f1": 42.06,
+      "roc_auc": 0.484,
+      "pr_auc": 0.4651,
+      "brier": 0.2613,
+      "ece": 0.1704,
+      "log_loss": 0.7159,
+      "confusion_matrix": [
+        [
+          18,
+          26
+        ],
+        [
+          21,
+          16
+        ]
+      ],
+      "per_class": {
+        "Non-Anemic": {
+          "precision": 46.15,
+          "recall": 40.91,
+          "f1_score": 43.37,
+          "false_negative_rate": 59.09,
+          "false_positive_rate": 56.76,
+          "support": 44
+        },
+        "Anemic": {
+          "precision": 38.1,
+          "recall": 43.24,
+          "f1_score": 40.51,
+          "false_negative_rate": 56.76,
+          "false_positive_rate": 59.09,
+          "support": 37
+        }
+      },
+      "high_risk_recall": 43.24,
+      "high_risk_precision": 38.1,
+      "high_risk_fpr": 59.09,
+      "high_risk_fnr": 56.76,
+      "model_name": "XGBoost"
+    },
+    {
+      "accuracy": 46.91,
+      "macro_precision": 47.45,
+      "macro_recall": 47.48,
+      "macro_f1": 46.88,
+      "weighted_f1": 46.77,
+      "roc_auc": 0.4773,
+      "pr_auc": 0.4662,
+      "brier": 0.2613,
+      "ece": 0.1222,
+      "log_loss": 0.716,
+      "confusion_matrix": [
+        [
+          18,
+          26
+        ],
+        [
+          17,
+          20
+        ]
+      ],
+      "per_class": {
+        "Non-Anemic": {
+          "precision": 51.43,
+          "recall": 40.91,
+          "f1_score": 45.57,
+          "false_negative_rate": 59.09,
+          "false_positive_rate": 45.95,
+          "support": 44
+        },
+        "Anemic": {
+          "precision": 43.48,
+          "recall": 54.05,
+          "f1_score": 48.19,
+          "false_negative_rate": 45.95,
+          "false_positive_rate": 59.09,
+          "support": 37
+        }
+      },
+      "high_risk_recall": 54.05,
+      "high_risk_precision": 43.48,
+      "high_risk_fpr": 59.09,
+      "high_risk_fnr": 45.95,
+      "model_name": "Equal-weight voting (50/50)"
+    },
+    {
+      "accuracy": 46.91,
+      "macro_precision": 47.27,
+      "macro_recall": 47.27,
+      "macro_f1": 46.91,
+      "weighted_f1": 46.91,
+      "roc_auc": 0.4797,
+      "pr_auc": 0.4684,
+      "brier": 0.2614,
+      "ece": 0.1231,
+      "log_loss": 0.7162,
+      "confusion_matrix": [
+        [
+          19,
+          25
+        ],
+        [
+          18,
+          19
+        ]
+      ],
+      "per_class": {
+        "Non-Anemic": {
+          "precision": 51.35,
+          "recall": 43.18,
+          "f1_score": 46.91,
+          "false_negative_rate": 56.82,
+          "false_positive_rate": 48.65,
+          "support": 44
+        },
+        "Anemic": {
+          "precision": 43.18,
+          "recall": 51.35,
+          "f1_score": 46.91,
+          "false_negative_rate": 48.65,
+          "false_positive_rate": 56.82,
+          "support": 37
+        }
+      },
+      "high_risk_recall": 51.35,
+      "high_risk_precision": 43.18,
+      "high_risk_fpr": 56.82,
+      "high_risk_fnr": 48.65,
+      "model_name": "Adaptive hybrid (RF 61.0%, XGB 39.0%)"
+    }
+  ],
+  "bootstrap_ci": {
+    "Random Forest": {
+      "n_boot_used": 1000,
+      "accuracy": {
+        "mean": 48.0,
+        "ci95_low": 38.24,
+        "ci95_high": 59.26
+      },
+      "macro_f1": {
+        "mean": 47.68,
+        "ci95_low": 37.04,
+        "ci95_high": 59.16
+      },
+      "weighted_f1": {
+        "mean": 48.05,
+        "ci95_low": 37.79,
+        "ci95_high": 59.22
+      },
+      "high_risk_recall": {
+        "mean": 51.56,
+        "ci95_low": 36.1,
+        "ci95_high": 67.57
+      },
+      "high_risk_precision": {
+        "mean": 44.07,
+        "ci95_low": 29.72,
+        "ci95_high": 58.82
+      },
+      "high_risk_fpr": {
+        "mean": 55.01,
+        "ci95_low": 40.0,
+        "ci95_high": 68.29
+      }
+    },
+    "XGBoost": {
+      "n_boot_used": 1000,
+      "accuracy": {
+        "mean": 41.74,
+        "ci95_low": 30.86,
+        "ci95_high": 53.09
+      },
+      "macro_f1": {
+        "mean": 41.4,
+        "ci95_low": 30.85,
+        "ci95_high": 53.02
+      },
+      "weighted_f1": {
+        "mean": 41.84,
+        "ci95_low": 31.35,
+        "ci95_high": 53.12
+      },
+      "high_risk_recall": {
+        "mean": 43.21,
+        "ci95_low": 27.26,
+        "ci95_high": 59.38
+      },
+      "high_risk_precision": {
+        "mean": 37.92,
+        "ci95_low": 23.26,
+        "ci95_high": 52.95
+      },
+      "high_risk_fpr": {
+        "mean": 59.51,
+        "ci95_low": 43.59,
+        "ci95_high": 73.81
+      }
+    },
+    "Equal-weight voting (50/50)": {
+      "n_boot_used": 1000,
+      "accuracy": {
+        "mean": 46.84,
+        "ci95_low": 37.01,
+        "ci95_high": 58.02
+      },
+      "macro_f1": {
+        "mean": 46.49,
+        "ci95_low": 35.79,
+        "ci95_high": 57.86
+      },
+      "weighted_f1": {
+        "mean": 46.69,
+        "ci95_low": 35.98,
+        "ci95_high": 57.96
+      },
+      "high_risk_recall": {
+        "mean": 54.31,
+        "ci95_low": 39.13,
+        "ci95_high": 70.45
+      },
+      "high_risk_precision": {
+        "mean": 43.45,
+        "ci95_low": 29.41,
+        "ci95_high": 58.14
+      },
+      "high_risk_fpr": {
+        "mean": 59.45,
+        "ci95_low": 45.0,
+        "ci95_high": 72.97
+      }
+    },
+    "Adaptive hybrid (RF 61.0%, XGB 39.0%)": {
+      "n_boot_used": 1000,
+      "accuracy": {
+        "mean": 46.83,
+        "ci95_low": 37.01,
+        "ci95_high": 58.02
+      },
+      "macro_f1": {
+        "mean": 46.52,
+        "ci95_low": 36.4,
+        "ci95_high": 57.86
+      },
+      "weighted_f1": {
+        "mean": 46.83,
+        "ci95_low": 36.52,
+        "ci95_high": 57.97
+      },
+      "high_risk_recall": {
+        "mean": 51.56,
+        "ci95_low": 36.1,
+        "ci95_high": 67.57
+      },
+      "high_risk_precision": {
+        "mean": 43.14,
+        "ci95_low": 29.03,
+        "ci95_high": 57.5
+      },
+      "high_risk_fpr": {
+        "mean": 57.16,
+        "ci95_low": 42.22,
+        "ci95_high": 71.43
+      }
+    }
+  },
+  "repeated_cv_on_development_split": {
+    "Random Forest": {
+      "folds": 15,
+      "accuracy_mean": 44.66,
+      "accuracy_std": 3.69,
+      "macro_f1_mean": 44.15,
+      "macro_f1_std": 3.83,
+      "focus_recall_mean": 39.21,
+      "focus_recall_std": 7.19
+    },
+    "XGBoost": {
+      "folds": 15,
+      "accuracy_mean": 47.02,
+      "accuracy_std": 2.44,
+      "macro_f1_mean": 46.48,
+      "macro_f1_std": 2.29,
+      "focus_recall_mean": 41.11,
+      "focus_recall_std": 4.54
+    }
+  },
+  "shap_importances": {
+    "rf": {
+      "MCHC": 0.3765,
+      "MCH": 0.333,
+      "MCV": 0.2905
+    },
+    "xgb": {
+      "MCHC": 0.3653,
+      "MCH": 0.3195,
+      "MCV": 0.3152
+    },
+    "hybrid_weighted_average": {
+      "MCHC": 0.3721,
+      "MCH": 0.3277,
+      "MCV": 0.3001
+    }
+  },
+  "hybrid_conclusion": {
+    "improved_on_held_out_test": false,
+    "macro_f1_gain_vs_best_base_points": -1.23,
+    "collapsed_to_one_model": false,
+    "statement": "The saved model predicts the dataset label from MCV, MCH, and MCHC only. It does not see hemoglobin, which defines that label exactly (100% of raw rows). The mixture did not improve held-out macro-F1 over the stronger base model in a meaningful way."
+  },
+  "objective": "0.50*macro-F1 + 0.30*anemic-class recall + 0.20*anemic-class precision, validation only"
+}

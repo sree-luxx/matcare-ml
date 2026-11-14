@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+env/
+ENV/
+
+# Streamlit secrets (never commit)
+.streamlit/secrets.toml
+
+# Local runtime database (contains patient records)
+data/*.db
+*.db
+*.sqlite
+*.sqlite3
+
+# Caches and scratch output
+.screenshots/
+.ipynb_checkpoints/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini

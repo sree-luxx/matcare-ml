@@ -1,0 +1,232 @@
+{
+    "comparison": [
+        {
+            "accuracy": 100.0,
+            "macro_precision": 100.0,
+            "macro_recall": 100.0,
+            "macro_f1": 100.0,
+            "roc_auc": 1.0,
+            "confusion_matrix": [
+                [
+                    121,
+                    0
+                ],
+                [
+                    0,
+                    93
+                ]
+            ],
+            "per_class": {
+                "Non-Anemic": {
+                    "precision": 100.0,
+                    "recall": 100.0,
+                    "f1_score": 100.0
+                },
+                "Anemic": {
+                    "precision": 100.0,
+                    "recall": 100.0,
+                    "f1_score": 100.0
+                }
+            },
+            "high_risk_recall": 100.0,
+            "high_risk_precision": 100.0,
+            "high_risk_fpr": 0.0,
+            "model_name": "Random Forest (Base A)"
+        },
+        {
+            "accuracy": 100.0,
+            "macro_precision": 100.0,
+            "macro_recall": 100.0,
+            "macro_f1": 100.0,
+            "roc_auc": 1.0,
+            "confusion_matrix": [
+                [
+                    121,
+                    0
+                ],
+                [
+                    0,
+                    93
+                ]
+            ],
+            "per_class": {
+                "Non-Anemic": {
+                    "precision": 100.0,
+                    "recall": 100.0,
+                    "f1_score": 100.0
+                },
+                "Anemic": {
+                    "precision": 100.0,
+                    "recall": 100.0,
+                    "f1_score": 100.0
+                }
+            },
+            "high_risk_recall": 100.0,
+            "high_risk_precision": 100.0,
+            "high_risk_fpr": 0.0,
+            "model_name": "XGBoost (Base B)"
+        },
+        {
+            "accuracy": 100.0,
+            "macro_precision": 100.0,
+            "macro_recall": 100.0,
+            "macro_f1": 100.0,
+            "roc_auc": 1.0,
+            "confusion_matrix": [
+                [
+                    121,
+                    0
+                ],
+                [
+                    0,
+                    93
+                ]
+            ],
+            "per_class": {
+                "Non-Anemic": {
+                    "precision": 100.0,
+                    "recall": 100.0,
+                    "f1_score": 100.0
+                },
+                "Anemic": {
+                    "precision": 100.0,
+                    "recall": 100.0,
+                    "f1_score": 100.0
+                }
+            },
+            "high_risk_recall": 100.0,
+            "high_risk_precision": 100.0,
+            "high_risk_fpr": 0.0,
+            "model_name": "Equal-Weight Voting (50/50)"
+        },
+        {
+            "accuracy": 100.0,
+            "macro_precision": 100.0,
+            "macro_recall": 100.0,
+            "macro_f1": 100.0,
+            "roc_auc": 1.0,
+            "confusion_matrix": [
+                [
+                    121,
+                    0
+                ],
+                [
+                    0,
+                    93
+                ]
+            ],
+            "per_class": {
+                "Non-Anemic": {
+                    "precision": 100.0,
+                    "recall": 100.0,
+                    "f1_score": 100.0
+                },
+                "Anemic": {
+                    "precision": 100.0,
+                    "recall": 100.0,
+                    "f1_score": 100.0
+                }
+            },
+            "high_risk_recall": 100.0,
+            "high_risk_precision": 100.0,
+            "high_risk_fpr": 0.0,
+            "model_name": "Adaptive Hybrid (RF: 0.0%, XGB: 100.0%)"
+        }
+    ],
+    "summary_table": [
+        {
+            "Model Approach": "Random Forest (Base A)",
+            "Accuracy (%)": 100.0,
+            "Macro F1 (%)": 100.0,
+            "Macro Precision (%)": 100.0,
+            "Macro Recall (%)": 100.0,
+            "Anemia Sensitivity (%)": 100.0,
+            "Anemia Precision (%)": 100.0,
+            "ROC-AUC": 1.0
+        },
+        {
+            "Model Approach": "XGBoost (Base B)",
+            "Accuracy (%)": 100.0,
+            "Macro F1 (%)": 100.0,
+            "Macro Precision (%)": 100.0,
+            "Macro Recall (%)": 100.0,
+            "Anemia Sensitivity (%)": 100.0,
+            "Anemia Precision (%)": 100.0,
+            "ROC-AUC": 1.0
+        },
+        {
+            "Model Approach": "Equal-Weight Voting (50/50)",
+            "Accuracy (%)": 100.0,
+            "Macro F1 (%)": 100.0,
+            "Macro Precision (%)": 100.0,
+            "Macro Recall (%)": 100.0,
+            "Anemia Sensitivity (%)": 100.0,
+            "Anemia Precision (%)": 100.0,
+            "ROC-AUC": 1.0
+        },
+        {
+            "Model Approach": "Adaptive Hybrid (RF: 0.0%, XGB: 100.0%)",
+            "Accuracy (%)": 100.0,
+            "Macro F1 (%)": 100.0,
+            "Macro Precision (%)": 100.0,
+            "Macro Recall (%)": 100.0,
+            "Anemia Sensitivity (%)": 100.0,
+            "Anemia Precision (%)": 100.0,
+            "ROC-AUC": 1.0
+        }
+    ],
+    "shap_importances": {
+        "rf": {
+            "Hemoglobin": 0.7162,
+            "Gender": 0.2291,
+            "MCH": 0.0261,
+            "MCHC": 0.0149,
+            "MCV": 0.0137
+        },
+        "xgb": {
+            "Hemoglobin": 0.6771,
+            "Gender": 0.276,
+            "MCH": 0.0217,
+            "MCHC": 0.0141,
+            "MCV": 0.011
+        },
+        "hybrid": {
+            "Hemoglobin": 0.6772,
+            "Gender": 0.276,
+            "MCH": 0.0217,
+            "MCHC": 0.0141,
+            "MCV": 0.011
+        }
+    },
+    "metadata": {
+        "feature_names": [
+            "Gender",
+            "Hemoglobin",
+            "MCH",
+            "MCHC",
+            "MCV"
+        ],
+        "class_names": [
+            "Non-Anemic",
+            "Anemic"
+        ],
+        "target_mapping": {
+            "0": 0,
+            "1": 1
+        },
+        "reverse_mapping": {
+            "0": "Non-Anemic",
+            "1": "Anemic"
+        },
+        "train_medians": {
+            "Gender": 1.0,
+            "Hemoglobin": 13.3,
+            "MCH": 22.7,
+            "MCHC": 30.3,
+            "MCV": 85.6
+        },
+        "n_train": 994,
+        "n_val": 213,
+        "n_test": 214
+    }
+}

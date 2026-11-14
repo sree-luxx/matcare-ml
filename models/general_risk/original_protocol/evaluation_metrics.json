@@ -1,0 +1,288 @@
+{
+    "comparison": [
+        {
+            "accuracy": 79.74,
+            "macro_precision": 79.56,
+            "macro_recall": 81.08,
+            "macro_f1": 80.08,
+            "roc_auc": 0.914,
+            "confusion_matrix": [
+                [
+                    47,
+                    14,
+                    0
+                ],
+                [
+                    8,
+                    35,
+                    8
+                ],
+                [
+                    1,
+                    0,
+                    40
+                ]
+            ],
+            "per_class": {
+                "Low Risk": {
+                    "precision": 83.93,
+                    "recall": 77.05,
+                    "f1_score": 80.34
+                },
+                "Mid Risk": {
+                    "precision": 71.43,
+                    "recall": 68.63,
+                    "f1_score": 70.0
+                },
+                "High Risk": {
+                    "precision": 83.33,
+                    "recall": 97.56,
+                    "f1_score": 89.89
+                }
+            },
+            "high_risk_recall": 97.56,
+            "high_risk_precision": 83.33,
+            "high_risk_fpr": 7.14,
+            "model_name": "Random Forest (Base A)"
+        },
+        {
+            "accuracy": 80.39,
+            "macro_precision": 80.47,
+            "macro_recall": 81.73,
+            "macro_f1": 80.97,
+            "roc_auc": 0.9298,
+            "confusion_matrix": [
+                [
+                    47,
+                    14,
+                    0
+                ],
+                [
+                    9,
+                    36,
+                    6
+                ],
+                [
+                    1,
+                    0,
+                    40
+                ]
+            ],
+            "per_class": {
+                "Low Risk": {
+                    "precision": 82.46,
+                    "recall": 77.05,
+                    "f1_score": 79.66
+                },
+                "Mid Risk": {
+                    "precision": 72.0,
+                    "recall": 70.59,
+                    "f1_score": 71.29
+                },
+                "High Risk": {
+                    "precision": 86.96,
+                    "recall": 97.56,
+                    "f1_score": 91.95
+                }
+            },
+            "high_risk_recall": 97.56,
+            "high_risk_precision": 86.96,
+            "high_risk_fpr": 5.36,
+            "model_name": "XGBoost (Base B)"
+        },
+        {
+            "accuracy": 80.39,
+            "macro_precision": 80.47,
+            "macro_recall": 81.73,
+            "macro_f1": 80.97,
+            "roc_auc": 0.9247,
+            "confusion_matrix": [
+                [
+                    47,
+                    14,
+                    0
+                ],
+                [
+                    9,
+                    36,
+                    6
+                ],
+                [
+                    1,
+                    0,
+                    40
+                ]
+            ],
+            "per_class": {
+                "Low Risk": {
+                    "precision": 82.46,
+                    "recall": 77.05,
+                    "f1_score": 79.66
+                },
+                "Mid Risk": {
+                    "precision": 72.0,
+                    "recall": 70.59,
+                    "f1_score": 71.29
+                },
+                "High Risk": {
+                    "precision": 86.96,
+                    "recall": 97.56,
+                    "f1_score": 91.95
+                }
+            },
+            "high_risk_recall": 97.56,
+            "high_risk_precision": 86.96,
+            "high_risk_fpr": 5.36,
+            "model_name": "Equal-Weight Voting (50/50)"
+        },
+        {
+            "accuracy": 80.39,
+            "macro_precision": 80.47,
+            "macro_recall": 81.73,
+            "macro_f1": 80.97,
+            "roc_auc": 0.9298,
+            "confusion_matrix": [
+                [
+                    47,
+                    14,
+                    0
+                ],
+                [
+                    9,
+                    36,
+                    6
+                ],
+                [
+                    1,
+                    0,
+                    40
+                ]
+            ],
+            "per_class": {
+                "Low Risk": {
+                    "precision": 82.46,
+                    "recall": 77.05,
+                    "f1_score": 79.66
+                },
+                "Mid Risk": {
+                    "precision": 72.0,
+                    "recall": 70.59,
+                    "f1_score": 71.29
+                },
+                "High Risk": {
+                    "precision": 86.96,
+                    "recall": 97.56,
+                    "f1_score": 91.95
+                }
+            },
+            "high_risk_recall": 97.56,
+            "high_risk_precision": 86.96,
+            "high_risk_fpr": 5.36,
+            "model_name": "Adaptive Hybrid (RF: 0.0%, XGB: 100.0%)"
+        }
+    ],
+    "summary_table": [
+        {
+            "Model Approach": "Random Forest (Base A)",
+            "Accuracy (%)": 79.74,
+            "Macro F1 (%)": 80.08,
+            "Macro Precision (%)": 79.56,
+            "Macro Recall (%)": 81.08,
+            "High-Risk Recall (%)": 97.56,
+            "High-Risk FPR (%)": 7.14,
+            "ROC-AUC": 0.914
+        },
+        {
+            "Model Approach": "XGBoost (Base B)",
+            "Accuracy (%)": 80.39,
+            "Macro F1 (%)": 80.97,
+            "Macro Precision (%)": 80.47,
+            "Macro Recall (%)": 81.73,
+            "High-Risk Recall (%)": 97.56,
+            "High-Risk FPR (%)": 5.36,
+            "ROC-AUC": 0.9298
+        },
+        {
+            "Model Approach": "Equal-Weight Voting (50/50)",
+            "Accuracy (%)": 80.39,
+            "Macro F1 (%)": 80.97,
+            "Macro Precision (%)": 80.47,
+            "Macro Recall (%)": 81.73,
+            "High-Risk Recall (%)": 97.56,
+            "High-Risk FPR (%)": 5.36,
+            "ROC-AUC": 0.9247
+        },
+        {
+            "Model Approach": "Adaptive Hybrid (RF: 0.0%, XGB: 100.0%)",
+            "Accuracy (%)": 80.39,
+            "Macro F1 (%)": 80.97,
+            "Macro Precision (%)": 80.47,
+            "Macro Recall (%)": 81.73,
+            "High-Risk Recall (%)": 97.56,
+            "High-Risk FPR (%)": 5.36,
+            "ROC-AUC": 0.9298
+        }
+    ],
+    "shap_importances": {
+        "rf": {
+            "BS": 0.3842,
+            "SystolicBP": 0.1947,
+            "BodyTemp": 0.1413,
+            "Age": 0.1121,
+            "DiastolicBP": 0.091,
+            "HeartRate": 0.0766
+        },
+        "xgb": {
+            "BS": 0.3578,
+            "SystolicBP": 0.191,
+            "BodyTemp": 0.1589,
+            "Age": 0.1267,
+            "HeartRate": 0.0895,
+            "DiastolicBP": 0.0761
+        },
+        "hybrid": {
+            "BS": 0.3578,
+            "SystolicBP": 0.191,
+            "BodyTemp": 0.1589,
+            "Age": 0.1267,
+            "HeartRate": 0.0895,
+            "DiastolicBP": 0.0761
+        }
+    },
+    "metadata": {
+        "feature_names": [
+            "Age",
+            "SystolicBP",
+            "DiastolicBP",
+            "BS",
+            "BodyTemp",
+            "HeartRate"
+        ],
+        "class_names": [
+            "Low Risk",
+            "Mid Risk",
+            "High Risk"
+        ],
+        "target_mapping": {
+            "low risk": 0,
+            "mid risk": 1,
+            "high risk": 2
+        },
+        "reverse_mapping": {
+            "0": "Low Risk",
+            "1": "Mid Risk",
+            "2": "High Risk"
+        },
+        "train_medians": {
+            "Age": 26.0,
+            "SystolicBP": 120.0,
+            "DiastolicBP": 80.0,
+            "BS": 7.5,
+            "BodyTemp": 98.0,
+            "HeartRate": 76.0
+        },
+        "n_train": 709,
+        "n_val": 152,
+        "n_test": 153
+    }
+}

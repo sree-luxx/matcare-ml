@@ -1,0 +1,61 @@
+{
+  "seed": 42,
+  "protocol": "deduplicated_index_features_70_15_15",
+  "feature_names": [
+    "MCV",
+    "MCH",
+    "MCHC"
+  ],
+  "excluded_features": [
+    "Gender",
+    "Hemoglobin"
+  ],
+  "exclusion_reason": "Result = 1 if (Gender==0 and Hemoglobin<12.0) or (Gender==1 and Hemoglobin<13.5), else 0. This describes anemia_cbc.csv. It is not a pregnancy-specific anemia rule.",
+  "class_names": [
+    "Non-Anemic",
+    "Anemic"
+  ],
+  "focus_class_index": 1,
+  "focus_class_name": "Anemic",
+  "n_train": 373,
+  "n_val": 80,
+  "n_test": 81,
+  "rf_params": {
+    "n_estimators": 320,
+    "min_samples_split": 5,
+    "min_samples_leaf": 8,
+    "max_features": 0.8,
+    "max_depth": 8,
+    "class_weight": "balanced_subsample",
+    "random_state": 42,
+    "n_jobs": -1
+  },
+  "xgb_params": {
+    "subsample": 0.7,
+    "reg_lambda": 8.0,
+    "reg_alpha": 0.0,
+    "n_estimators": 250,
+    "min_child_weight": 1,
+    "max_depth": 2,
+    "learning_rate": 0.03,
+    "colsample_bytree": 1.0,
+    "random_state": 42,
+    "objective": "binary:logistic",
+    "eval_metric": "logloss",
+    "tree_method": "hist",
+    "n_jobs": 1
+  },
+  "search_cv_macro_f1": {
+    "random_forest": 0.4814244295150945,
+    "xgboost": 0.4823385253378503
+  },
+  "test_used_for_tuning": false,
+  "full_feature_names_in_source_file": [
+    "Gender",
+    "Hemoglobin",
+    "MCH",
+    "MCHC",
+    "MCV"
+  ],
+  "rbc_in_source_file": false
+}

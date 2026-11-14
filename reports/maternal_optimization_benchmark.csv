@@ -1,0 +1,5 @@
+Approach,Accuracy (%),Macro-F1 (%),Macro-Prec (%),Macro-Rec (%),HR Recall (%),HR Precision (%),HR FPR (%),ROC-AUC
+Random Forest Alone,79.74,80.06,79.61,81.19,97.56,81.63,8.04,0.9264
+XGBoost Alone,81.05,81.54,81.06,82.28,97.56,86.96,5.36,0.934
+Equal-Weight Voting (50/50),81.05,81.54,81.06,82.28,97.56,86.96,5.36,0.9328
+"Adaptive Hybrid (RF: 27%, XGB: 73%)",81.05,81.54,81.06,82.28,97.56,86.96,5.36,0.9339
